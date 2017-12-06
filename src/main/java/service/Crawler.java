@@ -3,13 +3,12 @@ package service;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Guillaume on 06/12/2017.
@@ -17,42 +16,43 @@ import java.util.List;
 public class Crawler implements ICrawler {
 
     private URL url;
+    private URLRepo urlRepo;
+    private Document document;
 
-    public Crawler() {
-
+    public Crawler(URLRepo repo) {
+        urlRepo = repo;
+        this.url = repo.request();
+        if (this.url != null)
+            crawl(this.url);
     }
 
     // parcourir le contenu d'une page
-    public List<URL> crawl(final URL url) {
-        this.url = url;
-        List<URL> urls = extractLinks();
-        return urls;
+    public void crawl(final URL url) {
+        try {
+            this.document = Jsoup.connect(url.toURI().toString()).get();
+
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        extractLinks();
+        requestNextUrl();
     }
 
     // Stockage des liens externes
-    public List<URL> extractLinks() {
+    public void extractLinks() {
 
-        List<URL> urls = new ArrayList<URL>();
-        try {
-            Document doc = Jsoup.connect(url.toURI().toString()).get();
-            Elements links = doc.getElementsByTag("a");
-
-            System.out.println(doc.body().text());
-
-            for (Element e : links) {
-                if (e.attr("abs:href").startsWith("http")) {
-                    System.out.println(e.attr("abs:href"));
-                    urls.add(new URL(e.attr("abs:href")));
-                }
+        ArrayList<URL> extracted = new ArrayList<URL>();
+        for (Element e : this.document.select("a[href]")) {
+            try {
+                System.out.println(e.attr("abs:href"));
+                extracted.add(new URL(e.attr("abs:href")));
+            } catch (MalformedURLException exc) {
+                exc.printStackTrace();
             }
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
         }
-        return urls;
+        urlRepo.store(extracted);
     }
 
     public void publish(final URLRepo repo) {
@@ -62,6 +62,8 @@ public class Crawler implements ICrawler {
     }
 
     public void requestNextUrl() {
-        // TODO
+        this.url = urlRepo.request();
+        if (url != null)
+            crawl(url);
     }
 }

@@ -78,8 +78,10 @@ public class Indexer implements IIndexer {
         List<Term> terms = new ArrayList<Term>();
 
         for (String word : words) {
-            if (terms.)
+           // if (terms.)
         }
+
+        return null;
     }
 
     private boolean isWordInTermsList() {

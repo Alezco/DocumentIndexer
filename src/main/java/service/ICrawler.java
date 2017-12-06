@@ -1,13 +1,12 @@
 package service;
 
 import java.net.URL;
-import java.util.List;
 
 public interface ICrawler {
 
-    List<URL> crawl(URL url);
+    void crawl(URL url);
 
-    List<URL> extractLinks();
+    void extractLinks();
 
     void publish(URLRepo repo);
 

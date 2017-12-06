@@ -6,6 +6,7 @@ import java.util.Stack;
 
 public class URLRepo implements IURLRepo {
 
+    // SET
     private final Stack<URL> notCrawledUrl;
     private final Stack<URL> crawledUrl;
 
