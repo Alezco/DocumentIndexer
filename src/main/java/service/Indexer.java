@@ -1,12 +1,14 @@
 package service;
 
 import domain.RetroIndex;
+import domain.Term;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,6 +37,19 @@ public class Indexer implements IIndexer {
 
     }
 
+    public String sanitize(String content) {
+        String result = "";
+        List<String> list = Arrays.asList("\n", ",", ".", ";", "(", ")", "-");
+        String[] words = content.split("\\s+");
+        for (String word : words)
+        {
+            if (list.contains(word))
+                continue;
+            result += (word + " ");
+        }
+        return result;
+    }
+
     public String removeStopWords(String content) {
         String result = "";
         String[] words = content.split("\\s+");
@@ -43,6 +58,37 @@ public class Indexer implements IIndexer {
                 result += (word + " ");
         }
         return result;
+    }
+
+    public String stemming(String content) {
+        String result = "";
+        String[] words = content.split("\\s+");
+        for (String word : words) {
+            if (word.endsWith("ing") || word.endsWith("ed") || word.endsWith("ly"))
+                continue;
+            result += (word + " ");
+        }
+        return result;
+    }
+
+    public List<Term> createTermList(String content) {
+        String str = stemming(removeStopWords(sanitize(content)));
+        String[] words = str.split("\\s+");
+
+        List<Term> terms = new ArrayList<Term>();
+
+        for (String word : words) {
+            if (terms.)
+        }
+    }
+
+    private boolean isWordInTermsList() {
+        return false;
+    }
+
+    public float frequency(String content) {
+
+        return 0;
     }
 
 

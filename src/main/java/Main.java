@@ -1,6 +1,7 @@
 
 import service.Crawler;
 import service.Indexer;
+import service.URLRepo;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -10,6 +11,8 @@ import java.net.URL;
  */
 public class Main {
     public static void main(String[] args) {
+
+        URLRepo repo = new URLRepo();
 
         Indexer indexer = new Indexer();
 
