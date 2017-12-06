@@ -9,40 +9,45 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Guillaume on 06/12/2017.
  */
 public class Crawler implements ICrawler {
 
-    private URL url;
-    private URLRepo urlRepo;
+    private URL crawlingUrl;
     private Document document;
+    private final URLRepo urlRepo;
 
-    public Crawler(URLRepo repo) {
-        urlRepo = repo;
-        this.url = repo.request();
-        if (this.url != null)
-            crawl(this.url);
+    public Crawler(final URLRepo repo) {
+        this.urlRepo = repo;
+
+        // Request an url from the repository
+        this.crawlingUrl = repo.request();
+        if (this.crawlingUrl != null)
+            crawl(this.crawlingUrl);
     }
 
     // parcourir le contenu d'une page
     public void crawl(final URL url) {
         try {
+            // fetch and parse url
             this.document = Jsoup.connect(url.toURI().toString()).get();
-
         } catch (URISyntaxException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        extractLinks();
+
+        // Extract links and send it to repo
+        publish(urlRepo);
+
+        // Go back to beginning => next url
         requestNextUrl();
     }
 
-    // Stockage des liens externes
-    public void extractLinks() {
-
+    public List<URL> extractLinks() {
         ArrayList<URL> extracted = new ArrayList<URL>();
         for (Element e : this.document.select("a[href]")) {
             try {
@@ -52,18 +57,20 @@ public class Crawler implements ICrawler {
                 exc.printStackTrace();
             }
         }
-        urlRepo.store(extracted);
+        // extracting list of all links
+        return extracted;
     }
 
+
     public void publish(final URLRepo repo) {
-        // TODO
-        /*List<URL> extracted = extractLinks();
-        repo.store(extracted);*/
+        List<URL> extracted = extractLinks();
+        // Send the result to the repository
+        repo.store(extracted);
     }
 
     public void requestNextUrl() {
-        this.url = urlRepo.request();
-        if (url != null)
-            crawl(url);
+        this.crawlingUrl = urlRepo.request();
+        if (crawlingUrl != null)
+            crawl(crawlingUrl);
     }
 }
