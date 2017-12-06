@@ -34,6 +34,8 @@ public class URLRepo implements IURLRepo {
     }
 
     public URL request() {
+        if (notCrawledUrl.isEmpty())
+            return null;
         URL url = notCrawledUrl.pop();
         crawledUrl.add(url);
         return url;
