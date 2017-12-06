@@ -2,9 +2,6 @@ package domain;
 
 import java.util.List;
 
-/**
- * Created by Guillaume on 06/12/2017.
- */
 public class Term {
 
     private final String token;

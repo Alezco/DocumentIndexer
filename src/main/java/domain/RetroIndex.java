@@ -4,10 +4,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Guillaume on 06/12/2017.
- */
-
 public class RetroIndex {
 
     private List<Document> documents;

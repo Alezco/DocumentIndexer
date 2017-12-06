@@ -3,9 +3,6 @@ package domain;
 import java.net.URL;
 import java.util.List;
 
-/**
- * Created by Guillaume on 06/12/2017.
- */
 public class Document {
 
     private final URL url;

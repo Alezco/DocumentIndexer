@@ -13,9 +13,7 @@ public class Indexer implements IIndexer {
         URL url = repo.request();
         try {
             Document doc = Jsoup.connect(url.toURI().toString()).get();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
         return null;

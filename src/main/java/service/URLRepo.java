@@ -4,9 +4,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Stack;
 
-/**
- * Created by Guillaume on 06/12/2017.
- */
 public class URLRepo implements IURLRepo {
 
     private final Stack<URL> notCrawledUrl;
@@ -37,7 +34,6 @@ public class URLRepo implements IURLRepo {
     }
 
     public URL request() {
-
         URL url = notCrawledUrl.pop();
         crawledUrl.add(url);
         return url;
