@@ -1,5 +1,6 @@
 package service;
 
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -7,15 +8,15 @@ import java.util.List;
  */
 public class Repo implements IURLRepo {
 
-    public void receive(final List<String> urls) {
+    public void receive(final List<URL> urls) {
 
     }
 
-    public void store(final List<String> urls) {
+    public void store(final List<URL> urls) {
 
     }
 
-    public String request() {
+    public URL request() {
         return null;
     }
 }

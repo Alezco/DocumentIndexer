@@ -1,5 +1,6 @@
 package service;
 
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -7,11 +8,13 @@ import java.util.List;
  */
 public class Crawler implements ICrawler {
 
-    public void crawl(final String url) {
+    // parcourir le contenu d'une page
+    public void crawl(final URL url) {
 
     }
 
-    public List<String> extractLinks() {
+    // Stockage des liens externes
+    public List<URL> extractLinks() {
         return null;
     }
 

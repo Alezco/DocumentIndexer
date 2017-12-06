@@ -1,5 +1,6 @@
 package domain;
 
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -7,14 +8,13 @@ import java.util.Map;
  * Created by Guillaume on 06/12/2017.
  */
 
-// Construit par l'indexer
 public class RetroIndex {
 
     private List<Document> documents;
 
-    private Map<String, List<Document>> map;
+    private Map<URL, List<Document>> map;
 
-    public RetroIndex(final List<Document> documents, final Map<String, List<Document>> map) {
+    public RetroIndex(final List<Document> documents, final Map<URL, List<Document>> map) {
         this.documents = documents;
         this.map = map;
     }
