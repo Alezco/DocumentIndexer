@@ -7,7 +7,7 @@ import domain.RetroIndex;
  * Created by Guillaume on 06/12/2017.
  */
 public class Indexer implements IIndexer {
-    public String request(final Repo repo) {
+    public String request(final URLRepo repo) {
         return null;
     }
 

@@ -8,7 +8,7 @@ import domain.RetroIndex;
  */
 public interface IIndexer {
 
-    String request(Repo repo);
+    String request(URLRepo repo);
 
     Document index();
 

@@ -18,7 +18,7 @@ public class Crawler implements ICrawler {
         return null;
     }
 
-    public void publish(final Repo repo) {
+    public void publish(final URLRepo repo) {
 
     }
 

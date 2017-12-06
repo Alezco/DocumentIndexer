@@ -12,7 +12,7 @@ public interface ICrawler {
 
     List<URL> extractLinks();
 
-    void publish(Repo repo);
+    void publish(URLRepo repo);
 
     void requestNextUrl();
 }
