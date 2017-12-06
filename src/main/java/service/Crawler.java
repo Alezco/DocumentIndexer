@@ -19,11 +19,14 @@ public class Crawler implements ICrawler {
     private URL url;
 
     public Crawler() {
+
     }
 
     // parcourir le contenu d'une page
-    public void crawl(final URL url) {
+    public List<URL> crawl(final URL url) {
         this.url = url;
+        List<URL> urls = extractLinks();
+        return urls;
     }
 
     // Stockage des liens externes
@@ -34,8 +37,15 @@ public class Crawler implements ICrawler {
             Document doc = Jsoup.connect(url.toURI().toString()).get();
             Elements links = doc.getElementsByTag("a");
 
-            for (Element e : links)
-                urls.add(new URL(e.attr("abs:href").toString()));
+            System.out.println(doc.body().text());
+
+            for (Element e : links) {
+                if (e.attr("abs:href").startsWith("http")) {
+                    System.out.println(e.attr("abs:href"));
+                    urls.add(new URL(e.attr("abs:href")));
+                }
+            }
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,11 +56,12 @@ public class Crawler implements ICrawler {
     }
 
     public void publish(final URLRepo repo) {
-        List<URL> extracted = extractLinks();
-        repo.store(extracted);
+        // TODO
+        /*List<URL> extracted = extractLinks();
+        repo.store(extracted);*/
     }
 
     public void requestNextUrl() {
-
+        // TODO
     }
 }

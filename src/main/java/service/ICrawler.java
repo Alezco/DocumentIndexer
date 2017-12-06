@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface ICrawler {
 
-    void crawl(URL url);
+    List<URL> crawl(URL url);
 
     List<URL> extractLinks();
 

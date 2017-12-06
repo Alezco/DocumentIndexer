@@ -1,6 +1,6 @@
-<<<<<<< HEAD
-=======
+
 import service.Crawler;
+import service.Indexer;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -8,9 +8,12 @@ import java.net.URL;
 /**
  * Created by Guillaume on 06/12/2017.
  */
->>>>>>> wololo
 public class Main {
     public static void main(String[] args) {
+
+        Indexer indexer = new Indexer();
+
+
 
         Crawler crawler = new Crawler();
         try {
