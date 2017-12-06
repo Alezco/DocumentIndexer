@@ -1,12 +1,10 @@
-package indexer;
-
-import urlrepo.Repo;
+package service;
 
 /**
  * Created by Guillaume on 06/12/2017.
  */
 public interface IIndexer {
 
-    Url request(Repo repo);
+    String request(Repo repo);
 
 }

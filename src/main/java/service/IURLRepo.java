@@ -1,4 +1,4 @@
-package urlrepo;
+package service;
 
 import java.util.List;
 
