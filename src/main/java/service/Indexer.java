@@ -1,17 +1,27 @@
 package service;
 
-import domain.Document;
 import domain.RetroIndex;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
-/**
- * Created by Guillaume on 06/12/2017.
- */
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 public class Indexer implements IIndexer {
     public String request(final URLRepo repo) {
+        URL url = repo.request();
+        try {
+            Document doc = Jsoup.connect(url.toURI().toString()).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
-    public Document index() {
+    public domain.Document index() {
         return null;
     }
 
