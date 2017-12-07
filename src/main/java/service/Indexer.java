@@ -228,7 +228,7 @@ public class Indexer implements IIndexer {
         } catch (ArithmeticException e) {
             System.out.println(e.getMessage());
         }
-        return Math.log10(ratio);
+        return Math.log10(ratio + 1);
     }
 
 }

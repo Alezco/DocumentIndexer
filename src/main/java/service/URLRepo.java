@@ -29,7 +29,7 @@ public class URLRepo implements IURLRepo {
 
     public void store(final List<URL> urls) {
         for (URL url : urls) {
-            if (!notCrawledUrl.contains(url))
+            if (!crawledUrl.contains(url))
                 notCrawledUrl.add(url);
         }
     }

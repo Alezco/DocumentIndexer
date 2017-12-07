@@ -47,8 +47,10 @@ public class Crawler implements ICrawler {
         for (Element e : this.document.select("a[href]")) {
             try {
                 System.out.println(e.attr("abs:href"));
-                extracted.add(new URL(e.attr("abs:href")));
+                if (e.attr("abs:href").startsWith("http"))
+                    extracted.add(new URL(e.attr("abs:href")));
             } catch (MalformedURLException exc) {
+                System.out.println(e.attr("abs:href"));
                 exc.printStackTrace();
             }
         }

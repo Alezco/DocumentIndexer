@@ -14,7 +14,9 @@ public class Main {
         List<URL> urlList = new ArrayList<>();
 
         try {
-            urlList.add(new URL("https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"));
+            urlList.add(new URL("https://pastebin.com/raw/p1rixE68"));
+            urlList.add(new URL("https://pastebin.com/raw/HV7RHk5d"));
+            urlList.add(new URL("https://pastebin.com/raw/SS0QnUd3"));
             repo.store(urlList);
 
             // Crawl URL
