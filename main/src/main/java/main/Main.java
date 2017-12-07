@@ -1,3 +1,5 @@
+package main;
+
 import service.Crawler;
 import service.Indexer;
 import service.URLRepo;

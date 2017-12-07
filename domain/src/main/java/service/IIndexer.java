@@ -1,6 +1,6 @@
 package service;
 
-import domain.Document;
+import valueobject.Document;
 
 import java.net.URL;
 

@@ -1,7 +1,7 @@
 package service;
 
-import domain.RetroIndex;
-import domain.Term;
+import valueobject.RetroIndex;
+import valueobject.Term;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -48,7 +48,7 @@ public class Indexer implements IIndexer {
             final Document doc = Jsoup.connect(url.toURI().toString()).get();
             final String content = doc.body().text();
 
-            domain.Document dd = index(content);
+            valueobject.Document dd = index(content);
             retroIndex.documents.add(dd);
 
         } catch (IOException | URISyntaxException e) {
@@ -126,7 +126,7 @@ public class Indexer implements IIndexer {
     }
 
     @Override
-    public domain.Document index(final String input) {
+    public valueobject.Document index(final String input) {
         final List<Term> terms = new ArrayList<>();
 
         final String cleanup = this.cleanup(input);
@@ -171,14 +171,13 @@ public class Indexer implements IIndexer {
             terms.add(term);
         }
 
-        System.out.println("=====Document=====");
         for (Term t : terms) {
             System.out.println("token: " + t.token);
             System.out.println("tf: " + t.frequency);
             System.out.println("positions: " + t.positions.toString());
         }
 
-        return new domain.Document(crawlingUrl, terms);
+        return new valueobject.Document(crawlingUrl, terms);
     }
 
     private void requestNextUrl() {
@@ -202,12 +201,12 @@ public class Indexer implements IIndexer {
     }
 
     private void fillMap() {
-        for (final domain.Document document : this.retroIndex.documents) {
+        for (final valueobject.Document document : this.retroIndex.documents) {
             for (final Term term : document.terms) {
                 if (this.retroIndex.map.containsKey(term.token))
                     this.retroIndex.map.get(term.token).add(document);
                 else {
-                    final List<domain.Document> res = new ArrayList<>();
+                    final List<valueobject.Document> res = new ArrayList<>();
                     res.add(document);
                     this.retroIndex.map.put(term.token, res);
                 }

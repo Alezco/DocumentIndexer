@@ -1,2 +1,2 @@
 # DocumentIndexer
-Document indexer using Java
+indexer using Java
