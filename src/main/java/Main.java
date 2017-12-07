@@ -13,9 +13,9 @@ public class Main {
         List<URL> urlList = new ArrayList<>();
 
         try {
-            urlList.add(new URL("https://pastebin.com/raw/p1rixE68"));
-            urlList.add(new URL("https://pastebin.com/raw/HV7RHk5d"));
-            urlList.add(new URL("https://pastebin.com/raw/SS0QnUd3"));
+            urlList.add(new URL("https://pastebin.com/raw/07aPR2K4"));
+            urlList.add(new URL("https://pastebin.com/raw/jzAtxp85"));
+            urlList.add(new URL("https://pastebin.com/raw/U7PDZqC7"));
 
             repo.store(urlList);
 

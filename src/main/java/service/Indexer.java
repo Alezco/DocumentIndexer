@@ -205,15 +205,14 @@ public class Indexer implements IIndexer {
     }
 
     private double computeIDF(final String word) {
-        double nbDocs = this.retroIndex.getDocuments().size();
+        final double nbDocs = this.retroIndex.getDocuments().size();
         double ratio = 0;
         try {
             ratio = nbDocs / this.retroIndex.getMap().get(word).size();
         } catch (ArithmeticException e) {
             System.out.println(e.getMessage());
         }
-        return Math.log10(ratio + 1);
-
+        return Math.log10(ratio);
     }
 
 }
