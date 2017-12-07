@@ -24,16 +24,11 @@ public class Indexer implements IIndexer {
 
         // TEST
         retroIndex = new RetroIndex();
-
         this.urlRepo = urlRepo;
-
         requestNextUrl();
     }
 
-
-
     public void request(final URL url) {
-        //URL url = repo.request();
         try {
             Document doc = Jsoup.connect(url.toURI().toString()).get();
             String content = doc.body().text();
@@ -178,7 +173,47 @@ public class Indexer implements IIndexer {
         this.crawlingUrl = urlRepo.request();
         if (crawlingUrl != null)
             request(crawlingUrl);
-        else
+        else {
             System.out.println("retro index document number : " + this.retroIndex.getDocuments().size());
+
+            // Calcul de l'idf
+            fillMap();
+
+            Set keys = this.retroIndex.getMap().keySet();
+            Iterator it = keys.iterator();
+
+            while (it.hasNext()) {
+                Object key = it.next();
+                System.out.println("Key : " + key + " IDF : " + computeIDF(key.toString()));
+            }
+        }
     }
+
+    private void fillMap() {
+
+        for (final domain.Document document : this.retroIndex.getDocuments()) {
+            for (final Term term : document.getTerms()) {
+                if (this.retroIndex.getMap().containsKey(term.getToken()))
+                    this.retroIndex.getMap().get(term.getToken()).add(document);
+                else {
+                    List<domain.Document> res = new ArrayList<>();
+                    res.add(document);
+                    this.retroIndex.getMap().put(term.getToken(), res);
+                }
+            }
+        }
+    }
+
+    private double computeIDF(final String word) {
+        double nbDocs = this.retroIndex.getDocuments().size();
+        double ratio = 0;
+        try {
+            ratio = nbDocs / this.retroIndex.getMap().get(word).size();
+        } catch (ArithmeticException e) {
+            System.out.println(e.getMessage());
+        }
+        return Math.log10(ratio + 1);
+
+    }
+
 }
