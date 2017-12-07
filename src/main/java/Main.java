@@ -9,7 +9,6 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
         URLRepo repo = new URLRepo();
         List<URL> urlList = new ArrayList<>();
 
@@ -20,14 +19,11 @@ public class Main {
             repo.store(urlList);
 
             // Crawl URL
-            Crawler crawler = new Crawler(repo);
-            Indexer indexer = new Indexer(repo);
+            new Crawler(repo);
+            new Indexer(repo);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
-        //Indexer indexer = new Indexer(repo);
-        //Crawler crawler = new Crawler(repo);
     }
 }
