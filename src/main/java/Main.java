@@ -1,3 +1,4 @@
+import service.Crawler;
 import service.Indexer;
 import service.URLRepo;
 
@@ -13,12 +14,11 @@ public class Main {
         List<URL> urlList = new ArrayList<>();
 
         try {
-            urlList.add(new URL("https://pastebin.com/raw/07aPR2K4"));
-            urlList.add(new URL("https://pastebin.com/raw/jzAtxp85"));
-            urlList.add(new URL("https://pastebin.com/raw/U7PDZqC7"));
-
+            urlList.add(new URL("https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"));
             repo.store(urlList);
 
+            // Crawl URL
+            Crawler crawler = new Crawler(repo);
             Indexer indexer = new Indexer(repo);
 
         } catch (MalformedURLException e) {
