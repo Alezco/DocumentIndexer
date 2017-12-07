@@ -7,25 +7,9 @@ import java.util.Map;
 
 public class RetroIndex {
 
-    private List<Document> documents;
+    public final List<Document> documents;
 
-    private Map<String, List<Document>> map;
-
-    public List<Document> getDocuments() {
-        return documents;
-    }
-
-    public void setDocuments(final List<Document> documents) {
-        this.documents = documents;
-    }
-
-    public Map<String, List<Document>> getMap() {
-        return map;
-    }
-
-    public void setMap(final Map<String, List<Document>> map) {
-        this.map = map;
-    }
+    public final Map<String, List<Document>> map;
 
     public RetroIndex() {
         this.documents = new ArrayList<>();

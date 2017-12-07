@@ -9,8 +9,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        URLRepo repo = new URLRepo();
-        List<URL> urlList = new ArrayList<>();
+        final URLRepo repo = new URLRepo();
+        final List<URL> urlList = new ArrayList<>();
 
         try {
             urlList.add(new URL("https://pastebin.com/raw/p1rixE68"));
@@ -22,7 +22,7 @@ public class Main {
             new Crawler(repo);
             new Indexer(repo);
 
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
             e.printStackTrace();
         }
     }

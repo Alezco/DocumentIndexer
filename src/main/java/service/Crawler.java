@@ -43,7 +43,7 @@ public class Crawler implements ICrawler {
     }
 
     public List<URL> extractLinks() {
-        ArrayList<URL> extracted = new ArrayList<URL>();
+        final ArrayList<URL> extracted = new ArrayList<URL>();
         for (Element e : this.document.select("a[href]")) {
             try {
                 System.out.println(e.attr("abs:href"));
@@ -59,7 +59,7 @@ public class Crawler implements ICrawler {
     }
 
     public void publish(final URLRepo repo) {
-        List<URL> extracted = extractLinks();
+        final List<URL> extracted = extractLinks();
         // Send the result to the repository
         repo.store(extracted);
     }

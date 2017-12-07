@@ -29,27 +29,27 @@ public class Indexer implements IIndexer {
             request(url);
         }
 
-        System.out.println("retro index document number : " + this.retroIndex.getDocuments().size());
+        System.out.println("retro index document number : " + this.retroIndex.documents.size());
 
         // IDF compute
         fillMap();
 
-        Set keys = this.retroIndex.getMap().keySet();
-        Iterator it = keys.iterator();
+        final Set keys = this.retroIndex.map.keySet();
+        final Iterator it = keys.iterator();
 
         while (it.hasNext()) {
-            Object key = it.next();
+            final Object key = it.next();
             System.out.println("Key : " + key + " IDF : " + computeIDF(key.toString()));
         }
     }
 
     public void request(final URL url) {
         try {
-            Document doc = Jsoup.connect(url.toURI().toString()).get();
-            String content = doc.body().text();
+            final Document doc = Jsoup.connect(url.toURI().toString()).get();
+            final String content = doc.body().text();
 
             domain.Document dd = index(content);
-            retroIndex.getDocuments().add(dd);
+            retroIndex.documents.add(dd);
 
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
@@ -65,9 +65,9 @@ public class Indexer implements IIndexer {
      */
     @Override
     public String cleanup(final String input) {
-        StringBuilder result = new StringBuilder();
-        List<String> list = Arrays.asList("\n", ",", ".", ";", "(", ")", "-");
-        String[] words = input.split("\\s+");
+        final StringBuilder result = new StringBuilder();
+        final List<String> list = Arrays.asList("\n", ",", ".", ";", "(", ")", "-");
+        final String[] words = input.split("\\s+");
         for (String word : words)
         {
             if (list.contains(word))
@@ -85,8 +85,8 @@ public class Indexer implements IIndexer {
      */
     @Override
     public String tokenize(final String input) {
-        StringBuilder result = new StringBuilder();
-        String[] words = input.split("\\s+");
+        final StringBuilder result = new StringBuilder();
+        final String[] words = input.split("\\s+");
         for (String word : words) {
             // Stop Words
             if (stopWords.contains(word))
@@ -104,8 +104,8 @@ public class Indexer implements IIndexer {
      */
     @Override
     public String reduce(final String input) {
-        StringBuilder result = new StringBuilder();
-        String[] words = input.split("\\s+");
+        final StringBuilder result = new StringBuilder();
+        final String[] words = input.split("\\s+");
         for (String word : words) {
             // Stemmer
             final String token = basicStemmer(word);
@@ -127,17 +127,17 @@ public class Indexer implements IIndexer {
 
     @Override
     public domain.Document index(final String input) {
-        List<Term> terms = new ArrayList<>();
+        final List<Term> terms = new ArrayList<>();
 
-        String cleanup = this.cleanup(input);
+        final String cleanup = this.cleanup(input);
         float nbWords = cleanup.split("\\s+").length;
-        String tokenize = this.tokenize(cleanup);
-        String reduce = this.reduce(tokenize);
+        final String tokenize = this.tokenize(cleanup);
+        final String reduce = this.reduce(tokenize);
 
-        String[] words = reduce.split("\\s+");
+        final String[] words = reduce.split("\\s+");
 
         // Frequence and positions
-        Map<String, Integer> countsOccurence = new HashMap<>();
+        final Map<String, Integer> countsOccurence = new HashMap<>();
 
         for (String word : words) {
 
@@ -148,17 +148,17 @@ public class Indexer implements IIndexer {
                 countsOccurence.put(word, 1);
         }
 
-        Set keys = countsOccurence.keySet();
-        Iterator it = keys.iterator();
+        final Set keys = countsOccurence.keySet();
+        final Iterator it = keys.iterator();
 
         while (it.hasNext()) {
-            Object key = it.next();
-            int occurence = countsOccurence.get(key);
-            float tf = (float)occurence / nbWords;
+            final Object key = it.next();
+            final int occurence = countsOccurence.get(key);
+            final float tf = (float)occurence / nbWords;
 
             // Positions
-            List<Integer> positions = new ArrayList<>();
-            String[] strings = cleanup.split("\\s+");
+            final List<Integer> positions = new ArrayList<>();
+            final String[] strings = cleanup.split("\\s+");
 
             for (int i = 0; i < strings.length; i++)
             {
@@ -167,15 +167,15 @@ public class Indexer implements IIndexer {
                     positions.add(i + 1);
             }
 
-            Term term = new Term(key.toString(), positions, tf);
+            final Term term = new Term(key.toString(), positions, tf);
             terms.add(term);
         }
 
         System.out.println("=====Document=====");
         for (Term t : terms) {
-            System.out.println("token: " + t.getToken());
-            System.out.println("tf: " + t.getFrequency());
-            System.out.println("positions: " + t.getPositions().toString());
+            System.out.println("token: " + t.token);
+            System.out.println("tf: " + t.frequency);
+            System.out.println("positions: " + t.positions.toString());
         }
 
         return new domain.Document(crawlingUrl, terms);
@@ -186,13 +186,13 @@ public class Indexer implements IIndexer {
         if (crawlingUrl != null)
             request(crawlingUrl);
         else {
-            System.out.println("retro index document number : " + this.retroIndex.getDocuments().size());
+            System.out.println("retro index document number : " + this.retroIndex.documents.size());
 
             // IDF compute
             fillMap();
 
-            Set keys = this.retroIndex.getMap().keySet();
-            Iterator it = keys.iterator();
+            final Set keys = this.retroIndex.map.keySet();
+            final Iterator it = keys.iterator();
 
             while (it.hasNext()) {
                 Object key = it.next();
@@ -202,24 +202,24 @@ public class Indexer implements IIndexer {
     }
 
     private void fillMap() {
-        for (final domain.Document document : this.retroIndex.getDocuments()) {
-            for (final Term term : document.getTerms()) {
-                if (this.retroIndex.getMap().containsKey(term.getToken()))
-                    this.retroIndex.getMap().get(term.getToken()).add(document);
+        for (final domain.Document document : this.retroIndex.documents) {
+            for (final Term term : document.terms) {
+                if (this.retroIndex.map.containsKey(term.token))
+                    this.retroIndex.map.get(term.token).add(document);
                 else {
-                    List<domain.Document> res = new ArrayList<>();
+                    final List<domain.Document> res = new ArrayList<>();
                     res.add(document);
-                    this.retroIndex.getMap().put(term.getToken(), res);
+                    this.retroIndex.map.put(term.token, res);
                 }
             }
         }
     }
 
     private double computeIDF(final String word) {
-        final double nbDocs = this.retroIndex.getDocuments().size();
+        final double nbDocs = this.retroIndex.documents.size();
         double ratio = 0;
         try {
-            ratio = nbDocs / this.retroIndex.getMap().get(word).size();
+            ratio = nbDocs / this.retroIndex.map.get(word).size();
         } catch (ArithmeticException e) {
             System.out.println(e.getMessage());
         }
