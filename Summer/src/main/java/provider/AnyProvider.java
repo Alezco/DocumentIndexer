@@ -14,7 +14,7 @@ public class AnyProvider<T> implements Provider {
                 return object;
         }
         try {
-            final T instance = (T)c.getDeclaredConstructor(c).newInstance();
+            final T instance = (T)c.getDeclaredConstructor().newInstance(c);
             instanceList.add(instance);
             return instance;
         } catch (final InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {

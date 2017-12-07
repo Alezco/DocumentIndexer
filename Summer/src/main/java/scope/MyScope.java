@@ -15,7 +15,8 @@ public class MyScope implements Scope  {
     public Provider get(final Class c) {
         for (Provider provider : providerList)
         {
-
+            if (provider.getClass() == c)
+                return provider;
         }
         return null;
     }
