@@ -5,11 +5,11 @@ import java.util.List;
 
 public interface ICrawler {
 
-    void crawl(URL url);
+    void crawl(final URL url);
 
     List<URL> extractLinks();
 
-    void publish(URLRepo repo);
+    void publish(final URLRepo repo);
 
     void requestNextUrl();
 }

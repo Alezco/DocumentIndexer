@@ -7,9 +7,6 @@ import java.util.Set;
 import java.util.Stack;
 
 public class URLRepo implements IURLRepo {
-
-    // SET
-
     private final Stack<URL> notCrawledUrl;
     private final Set<URL> crawledUrl;
 
@@ -27,7 +24,7 @@ public class URLRepo implements IURLRepo {
     }
 
     public void receive(final List<URL> urls) {
-        //
+        // TODO
     }
 
     public void store(final List<URL> urls) {
@@ -40,7 +37,7 @@ public class URLRepo implements IURLRepo {
     public URL request() {
         if (notCrawledUrl.isEmpty())
             return null;
-        URL url = notCrawledUrl.pop();
+        final URL url = notCrawledUrl.pop();
         crawledUrl.add(url);
         return url;
     }

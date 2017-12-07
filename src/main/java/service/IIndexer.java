@@ -6,11 +6,7 @@ import java.net.URL;
 
 public interface IIndexer {
 
-    void request(URL url);
-
-    /*Document index();
-
-    void publish(RetroIndex retroIndex);*/
+    void request(final URL url);
 
     String cleanup(final String input);
 
@@ -19,5 +15,4 @@ public interface IIndexer {
     String reduce(final String input);
 
     Document index(final String input);
-
 }

@@ -11,9 +11,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Guillaume on 06/12/2017.
- */
 public class Crawler implements ICrawler {
 
     private URL crawlingUrl;
@@ -29,14 +26,12 @@ public class Crawler implements ICrawler {
             crawl(this.crawlingUrl);
     }
 
-    // parcourir le contenu d'une page
+    // Crawl a page content
     public void crawl(final URL url) {
         try {
-            // fetch and parse url
+            // Fetch and parse url
             this.document = Jsoup.connect(url.toURI().toString()).get();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
         }
 
@@ -57,10 +52,9 @@ public class Crawler implements ICrawler {
                 exc.printStackTrace();
             }
         }
-        // extracting list of all links
+        // Extracting list of all links
         return extracted;
     }
-
 
     public void publish(final URLRepo repo) {
         List<URL> extracted = extractLinks();

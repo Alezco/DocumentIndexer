@@ -1,4 +1,3 @@
-import service.Crawler;
 import service.Indexer;
 import service.URLRepo;
 
@@ -7,9 +6,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Guillaume on 06/12/2017.
- */
 public class Main {
     public static void main(String[] args) {
 
@@ -29,8 +25,7 @@ public class Main {
             e.printStackTrace();
         }
 
-
         //Indexer indexer = new Indexer(repo);
-        Crawler crawler = new Crawler(repo);
+        //Crawler crawler = new Crawler(repo);
     }
 }
