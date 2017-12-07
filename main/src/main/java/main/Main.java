@@ -14,6 +14,8 @@ public class Main {
         final URLRepo repo = new URLRepo();
         final List<URL> urlList = new ArrayList<>();
 
+        ProviderSingleton
+
         try {
             urlList.add(new URL("https://en.wikipedia.org/wiki/Rafic_Hariri"));
             repo.store(urlList);

@@ -1,6 +1,5 @@
 package provider;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +12,11 @@ public class AnyProvider<T> implements Provider {
             if (object.getClass() == c)
                 return object;
         }
-        try {
-            final T instance = (T)c.getDeclaredConstructor().newInstance(c);
-            instanceList.add(instance);
-            return instance;
-        } catch (final InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return null;
+    }
+
+    @Override
+    public void create(final Class c, final Object obj) {
+        instanceList.add((T)obj);
     }
 }

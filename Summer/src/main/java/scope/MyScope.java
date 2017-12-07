@@ -1,6 +1,7 @@
 package scope;
 
 import provider.Provider;
+import provider.ProviderSingleton;
 
 import java.util.List;
 
@@ -15,9 +16,16 @@ public class MyScope implements Scope  {
     public Provider get(final Class c) {
         for (Provider provider : providerList)
         {
-            if (provider.getClass() == c)
+            if (provider.get(c) != null)
                 return provider;
         }
         return null;
+    }
+
+    @Override
+    public void create(final Class c, Object obj) {
+        ProviderSingleton provider = new ProviderSingleton();
+        provider.create(c, obj);
+        providerList.add(provider);
     }
 }
