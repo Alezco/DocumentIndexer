@@ -1,5 +1,6 @@
 package service;
 
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.List;
@@ -28,9 +29,13 @@ public class URLRepo implements IURLRepo {
     }
 
     public void store(final List<URL> urls) {
-        for (URL url : urls) {
-            if (!crawledUrl.contains(url))
-                notCrawledUrl.add(url);
+        for (final URL url : urls) {
+            try {
+                if (!crawledUrl.contains(url.toURI().toString()))
+                    notCrawledUrl.add(url);
+            } catch (final URISyntaxException e) {
+                e.printStackTrace();
+            }
         }
     }
 

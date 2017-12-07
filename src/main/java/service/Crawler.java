@@ -39,7 +39,7 @@ public class Crawler implements ICrawler {
         publish(urlRepo);
 
         // Go back to beginning => next url
-        requestNextUrl();
+        //requestNextUrl();
     }
 
     public List<URL> extractLinks() {
