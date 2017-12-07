@@ -24,7 +24,7 @@ public class URLRepo implements IURLRepo {
     }
 
     public void receive(final List<URL> urls) {
-        // TODO
+        notCrawledUrl.addAll(urls);
     }
 
     public void store(final List<URL> urls) {
