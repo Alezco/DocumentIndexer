@@ -2,9 +2,11 @@ package service;
 
 import domain.Document;
 
+import java.net.URL;
+
 public interface IIndexer {
 
-    String request(URLRepo repo);
+    void request(URL url);
 
     /*Document index();
 

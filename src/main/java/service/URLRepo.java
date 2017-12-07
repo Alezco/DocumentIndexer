@@ -1,7 +1,9 @@
 package service;
 
 import java.net.URL;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 
 public class URLRepo implements IURLRepo {
@@ -9,19 +11,19 @@ public class URLRepo implements IURLRepo {
     // SET
 
     private final Stack<URL> notCrawledUrl;
-    private final Stack<URL> crawledUrl;
+    private final Set<URL> crawledUrl;
 
     public Stack<URL> getNotCrawledUrl() {
         return notCrawledUrl;
     }
 
-    public Stack<URL> getCrawledUrl() {
+    public Set<URL> getCrawledUrl() {
         return crawledUrl;
     }
 
     public URLRepo() {
         this.notCrawledUrl = new Stack<>();
-        this.crawledUrl = new Stack<>();
+        this.crawledUrl = new HashSet<>();
     }
 
     public void receive(final List<URL> urls) {
