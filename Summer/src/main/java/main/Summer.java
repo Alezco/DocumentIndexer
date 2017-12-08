@@ -2,6 +2,7 @@ package main;
 
 import scope.AnyScope;
 
+import java.util.Collections;
 import java.util.Stack;
 import java.util.function.Supplier;
 
@@ -24,7 +25,9 @@ public class Summer {
 
     public Object instanceOf(final Class c) {
         final Stack<?> temp = (Stack<?>) scopeStack.clone();
-        while (temp.size() > 0) {
+        Collections.reverse(temp);
+
+        while (!temp.isEmpty()) {
             final AnyScope scope = (AnyScope) temp.pop();
             if (scope.get(c) != null)
                 return scope.get(c).get(c);

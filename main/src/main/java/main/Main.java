@@ -42,6 +42,7 @@ public class Main {
         summer.addScope();
         summer.bean(URLRepo.class, () -> new URLRepo());
         final URLRepo repo3 = (URLRepo) summer.instanceOf(URLRepo.class);
+        summer.addScope();
         summer.bean(URLRepo.class, () -> new URLRepo());
         final URLRepo repo4 = (URLRepo) summer.instanceOf(URLRepo.class);
 
