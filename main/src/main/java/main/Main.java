@@ -1,7 +1,5 @@
 package main;
 
-import service.Crawler;
-import service.Indexer;
 import service.URLRepo;
 
 import java.net.MalformedURLException;
@@ -18,13 +16,22 @@ public class Main {
         summer.bean(URLRepo.class, new URLRepo());
         URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
 
+        summer.addScope();
+        summer.bean(URLRepo.class, new URLRepo());
+        URLRepo repo1 = (URLRepo) summer.instanceOf(URLRepo.class);
+
+        if (repo == repo1)
+            System.out.println("ECHEC");
+        else
+            System.out.println("SUCCESS");
+
         try {
             urlList.add(new URL("https://en.wikipedia.org/wiki/Rafic_Hariri"));
-            repo.store(urlList);
+            //repo.store(urlList);
 
             // Crawl URL
-            new Crawler(repo);
-            new Indexer(repo);
+            //new Crawler(repo);
+            //new Indexer(repo);
 
         } catch (final MalformedURLException e) {
             e.printStackTrace();

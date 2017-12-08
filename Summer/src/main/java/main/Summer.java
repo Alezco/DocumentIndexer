@@ -10,7 +10,7 @@ public class Summer {
 
     public Summer() {
         this.scopeStack = new Stack<>();
-        this.scopeStack.push(new AnyScope());
+        this.addScope();
     }
 
     public void bean(Class c, Object obj) {
@@ -18,14 +18,29 @@ public class Summer {
     }
 
     public Object instanceOf(Class c) {
-        for (final AnyScope scope : scopeStack) {
+
+        final Stack<?> temp = (Stack<?>) scopeStack.clone();
+
+        while (temp.size() > 0) {
+            final AnyScope scope = (AnyScope) temp.pop();
             if (scope.get(c) != null)
                 return scope.get(c).get(c);
         }
+
         return null;
+
+        /*for (final AnyScope scope : scopeStack) {
+            if (scope.get(c) != null)
+                return scope.get(c).get(c);
+        }
+        return null;*/
     }
 
     public void removeScope() {
         this.scopeStack.pop();
+    }
+
+    public void addScope() {
+        this.scopeStack.push(new AnyScope());
     }
 }

@@ -1,7 +1,6 @@
 package scope;
 
 import provider.Provider;
-import provider.ProviderSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,6 @@ public class AnyScope implements Scope  {
     public AnyScope() {
         this.providerList = new ArrayList<>();
     }
-
 
     @Override
     public Provider get(final Class c) {
