@@ -33,7 +33,7 @@ public class AnyScope implements Scope  {
     @Override
     public void create(final Class c, Object obj) {
         final ProviderSingleton provider = new ProviderSingleton();
-        provider.create(obj);
-        providerList.add(provider);
+        if (provider.create(obj))
+            providerList.add(provider);
     }
 }

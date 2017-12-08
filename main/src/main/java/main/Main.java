@@ -9,17 +9,16 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        //final URLRepo repo = new URLRepo();
         final List<URL> urlList = new ArrayList<>();
 
-        Summer summer = new Summer();
+        final Summer summer = new Summer();
 
         summer.bean(URLRepo.class, new URLRepo());
-        URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
+        final URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
 
         summer.addScope();
         summer.bean(URLRepo.class, new URLRepo());
-        URLRepo repo1 = (URLRepo) summer.instanceOf(URLRepo.class);
+        final URLRepo repo1 = (URLRepo) summer.instanceOf(URLRepo.class);
 
         if (repo == repo1)
             System.out.println("SUCCESS 1");
@@ -42,9 +41,9 @@ public class Main {
         summer.removeScope();
         summer.addScope();
         summer.bean(URLRepo.class, () -> new URLRepo());
-        URLRepo repo3 = (URLRepo) summer.instanceOf(URLRepo.class);
+        final URLRepo repo3 = (URLRepo) summer.instanceOf(URLRepo.class);
         summer.bean(URLRepo.class, () -> new URLRepo());
-        URLRepo repo4 = (URLRepo) summer.instanceOf(URLRepo.class);
+        final URLRepo repo4 = (URLRepo) summer.instanceOf(URLRepo.class);
 
         if (repo3 == repo4)
             System.out.println("FAIL 2");

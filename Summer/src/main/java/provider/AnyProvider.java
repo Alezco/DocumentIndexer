@@ -15,12 +15,13 @@ public abstract class AnyProvider<T> implements Provider {
         return null;
     }
 
-    public void create(final Object obj) {
-        for (T object : instanceList) {
+    public boolean create(final Object obj) {
+        for (final T object : instanceList) {
             if (object.getClass() == obj.getClass())
-                return;
+                return false;
         }
         instanceList.add((T)obj);
+        return true;
     }
 
     public void create(final Supplier supplier) {
