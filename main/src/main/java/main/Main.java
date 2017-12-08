@@ -17,11 +17,12 @@ public class Main {
 
         final Summer summer = new Summer();
         summer.bean(URLRepo.class, new URLRepo());
-        URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
-        BeforeInvocation beforeInvocation = new BeforeInvocation(repo, () -> System.out.println("====Before invocation===="));
-        AfterInvocation afterInvocation = new AfterInvocation(repo, () -> System.out.println("====After invocation===="));
-        IURLRepo iurlRepo = (IURLRepo) summer.callProxy(URLRepo.class, beforeInvocation);
-        IURLRepo iurlRepo2 = (IURLRepo) summer.callProxy(URLRepo.class, afterInvocation);
+        final URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
+        final BeforeInvocation beforeInvocation = new BeforeInvocation(repo, () -> System.out.println("===Before invocation===="));
+        final AfterInvocation afterInvocation = new AfterInvocation(repo, () -> System.out.println("====After invocation===="));
+        final IURLRepo iurlRepo = (IURLRepo) summer.callProxy(URLRepo.class, beforeInvocation);
+        // callProxy(.class, lambda) ===> .class => instance (instanceOf ?)
+        final IURLRepo iurlRepo2 = (IURLRepo) summer.callProxy(URLRepo.class, afterInvocation);
         iurlRepo.testProxy();
         System.out.println("========================");
         iurlRepo2.testProxy();
