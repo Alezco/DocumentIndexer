@@ -1,7 +1,7 @@
 package provider;
 
-public interface Provider {
+public interface Provider<T> {
     Object get(final Class c);
 
-    void create(final Class c, final Object obj);
+    void create(final Object obj);
 }

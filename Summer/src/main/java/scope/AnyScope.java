@@ -1,10 +1,12 @@
 package scope;
 
 import provider.Provider;
+import provider.ProviderPrototype;
 import provider.ProviderSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class AnyScope implements Scope  {
 
@@ -22,10 +24,16 @@ public class AnyScope implements Scope  {
         return null;
     }
 
+    public void create(final Class c, final Supplier supplier) {
+        final ProviderPrototype provider = new ProviderPrototype();
+        provider.create(supplier);
+        providerList.add(provider);
+    }
+
     @Override
     public void create(final Class c, Object obj) {
-        final ProviderSingleton provider = ProviderSingleton.getInstance();
-        provider.create(c, obj);
+        final ProviderSingleton provider = new ProviderSingleton();
+        provider.create(obj);
         providerList.add(provider);
     }
 }

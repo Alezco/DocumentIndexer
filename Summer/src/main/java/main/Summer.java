@@ -3,6 +3,7 @@ package main;
 import scope.AnyScope;
 
 import java.util.Stack;
+import java.util.function.Supplier;
 
 public class Summer {
 
@@ -15,6 +16,10 @@ public class Summer {
 
     public void bean(final Class c, final Object obj) {
         this.scopeStack.peek().create(c, obj);
+    }
+
+    public void bean(final Class c, final Supplier supplier) {
+        this.scopeStack.peek().create(c, supplier);
     }
 
     public Object instanceOf(final Class c) {
