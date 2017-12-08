@@ -16,7 +16,7 @@ public class Summer {
     }
 
     public Object instanceOf(Class c) {
-        for (AnyScope scope : scopeStack) {
+        for (final AnyScope scope : scopeStack) {
             if (scope.get(c) != null)
                 return scope.get(c).get(c);
         }
