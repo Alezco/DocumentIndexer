@@ -11,10 +11,12 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        final URLRepo repo = new URLRepo();
+        //final URLRepo repo = new URLRepo();
         final List<URL> urlList = new ArrayList<>();
 
         Summer summer = new Summer();
+        summer.bean(URLRepo.class, new URLRepo());
+        URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
 
         try {
             urlList.add(new URL("https://en.wikipedia.org/wiki/Rafic_Hariri"));
