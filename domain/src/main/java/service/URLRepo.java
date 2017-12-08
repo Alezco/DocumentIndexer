@@ -46,4 +46,8 @@ public class URLRepo implements IURLRepo {
         crawledUrl.add(url);
         return url;
     }
+
+    public void testProxy() {
+        System.out.println("Test Proxy from URL Repo");
+    }
 }

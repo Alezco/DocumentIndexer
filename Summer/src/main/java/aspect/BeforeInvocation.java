@@ -1,9 +1,8 @@
 package aspect;
 
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-public class BeforeInvocation implements InvocationHandler {
+public class BeforeInvocation implements Aspect {
 
     private final Object object;
 
@@ -13,9 +12,7 @@ public class BeforeInvocation implements InvocationHandler {
 
     @Override
     public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
-
-        // before
-
+        System.out.println("==BEFORE==");
         return method.invoke(object, args);
     }
 }

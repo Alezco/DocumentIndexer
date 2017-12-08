@@ -1,7 +1,10 @@
 package main;
 
+import aspect.Aspect;
+import aspect.BeforeInvocation;
 import service.URLRepo;
 
+import java.lang.reflect.Proxy;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,43 +15,19 @@ public class Main {
         final List<URL> urlList = new ArrayList<>();
 
         final Summer summer = new Summer();
-        test(summer);
+        summer.bean(URLRepo.class, new URLRepo());
+        final URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
+        BeforeInvocation beforeInvocation = new BeforeInvocation(repo);
+        Aspect aspect = (Aspect) Proxy.newProxyInstance(Aspect.class.getClassLoader(),
+                new Class[] { Aspect.class },
+                beforeInvocation);
+        //aspect.invoke(Proxy.newProxyInstance(Aspect.class.getClassLoader()), repo.getClass().getMethod("testProxy"), []);
+
 
         try {
             urlList.add(new URL("https://en.wikipedia.org/wiki/Rafic_Hariri"));
-
         } catch (final MalformedURLException e) {
             e.printStackTrace();
         }
-    }
-
-    private static void test(Summer summer) {
-
-        summer.bean(URLRepo.class, new URLRepo());
-        final URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
-        summer.addScope();
-        summer.bean(URLRepo.class, new URLRepo());
-        final URLRepo repo1 = (URLRepo) summer.instanceOf(URLRepo.class);
-
-        if (repo == repo1)
-            System.out.println("SUCCESS 1");
-        else
-            System.out.println("FAIL 1");
-
-        // Clean scopes
-        summer.removeScope();
-        summer.removeScope();
-        summer.addScope();
-
-        summer.bean(URLRepo.class, () -> new URLRepo());
-        final URLRepo repo3 = (URLRepo) summer.instanceOf(URLRepo.class);
-        summer.addScope();
-        summer.bean(URLRepo.class, () -> new URLRepo());
-        final URLRepo repo4 = (URLRepo) summer.instanceOf(URLRepo.class);
-
-        if (repo3 == repo4)
-            System.out.println("FAIL 2");
-        else
-            System.out.println("SUCCESS 2");
     }
 }
