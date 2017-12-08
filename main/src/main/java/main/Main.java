@@ -14,7 +14,7 @@ public class Main {
         final URLRepo repo = new URLRepo();
         final List<URL> urlList = new ArrayList<>();
 
-        ProviderSingleton
+        Summer summer = new Summer();
 
         try {
             urlList.add(new URL("https://en.wikipedia.org/wiki/Rafic_Hariri"));

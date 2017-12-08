@@ -1,3 +1,5 @@
+package main;
+
 import scope.AnyScope;
 
 import java.util.Stack;

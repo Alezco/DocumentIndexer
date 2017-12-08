@@ -21,7 +21,7 @@
         </plugins>
     </build>
     <modules>
-        <module>Summer</module>
+        <module>main.Summer</module>
         <module>domain</module>
         <module>main</module>
     </modules>
