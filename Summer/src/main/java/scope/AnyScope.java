@@ -1,6 +1,7 @@
 package scope;
 
 import provider.Provider;
+import provider.ProviderSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class AnyScope implements Scope  {
 
     @Override
     public void create(final Class c, Object obj) {
-        final ProviderSingleton provider = new ProviderSingleton();
+        final ProviderSingleton provider = ProviderSingleton.getInstance();
         provider.create(c, obj);
         providerList.add(provider);
     }

@@ -3,7 +3,7 @@ package provider;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnyProvider<T> implements Provider {
+public abstract class AnyProvider<T> implements Provider {
     public final List<T> instanceList = new ArrayList<>();
 
     @Override

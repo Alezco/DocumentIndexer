@@ -13,27 +13,18 @@ public class Summer {
         this.addScope();
     }
 
-    public void bean(Class c, Object obj) {
+    public void bean(final Class c, final Object obj) {
         this.scopeStack.peek().create(c, obj);
     }
 
-    public Object instanceOf(Class c) {
-
+    public Object instanceOf(final Class c) {
         final Stack<?> temp = (Stack<?>) scopeStack.clone();
-
         while (temp.size() > 0) {
             final AnyScope scope = (AnyScope) temp.pop();
             if (scope.get(c) != null)
                 return scope.get(c).get(c);
         }
-
         return null;
-
-        /*for (final AnyScope scope : scopeStack) {
-            if (scope.get(c) != null)
-                return scope.get(c).get(c);
-        }
-        return null;*/
     }
 
     public void removeScope() {
