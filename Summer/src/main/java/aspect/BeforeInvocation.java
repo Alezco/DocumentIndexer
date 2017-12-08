@@ -12,7 +12,7 @@ public class BeforeInvocation implements Aspect {
 
     @Override
     public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
-        System.out.println("==BEFORE==");
+        System.out.println("Before invocation");
         return method.invoke(object, args);
     }
 }
