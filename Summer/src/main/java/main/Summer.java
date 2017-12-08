@@ -2,7 +2,6 @@ package main;
 
 import scope.AnyScope;
 
-import java.util.Collections;
 import java.util.Stack;
 import java.util.function.Supplier;
 
@@ -16,7 +15,7 @@ public class Summer {
     }
 
     public void bean(final Class c, final Object obj) {
-        for (AnyScope scope : scopeStack)
+        for (final AnyScope scope : scopeStack)
             if (scope.get(c) != null)
                 return;
         this.scopeStack.peek().create(c, obj);
@@ -28,7 +27,6 @@ public class Summer {
 
     public Object instanceOf(final Class c) {
         final Stack<?> temp = (Stack<?>) scopeStack.clone();
-
         while (!temp.isEmpty()) {
             final AnyScope scope = (AnyScope) temp.pop();
             if (scope.get(c) != null)

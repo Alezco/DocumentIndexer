@@ -3,9 +3,6 @@ package main;
 import org.junit.Test;
 import service.URLRepo;
 
-/**
- * Created by Guillaume on 08/12/2017.
- */
 public class SummerTest {
 
     @Test

@@ -13,18 +13,4 @@ public abstract class AnyProvider implements Provider {
         }
         return null;
     }
-
-    /*public boolean create(final Object obj) {
-        for (final Object object : instanceList) {
-            if (object.getClass() == obj.getClass())
-                return false;
-        }
-        instanceList.add(obj);
-        return true;
-    }
-
-    public void create(final Supplier supplier) {
-        final Object obj = supplier.get();
-        instanceList.add(obj);
-    }*/
 }
