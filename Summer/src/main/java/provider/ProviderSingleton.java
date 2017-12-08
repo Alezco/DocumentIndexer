@@ -1,7 +1,7 @@
 package provider;
 
 public class ProviderSingleton extends AnyProvider {
-    private static ProviderSingleton ourInstance = new ProviderSingleton();
+    private static final ProviderSingleton ourInstance = new ProviderSingleton();
 
     public static ProviderSingleton getInstance() {
         return ourInstance;

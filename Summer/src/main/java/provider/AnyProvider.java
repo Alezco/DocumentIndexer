@@ -8,7 +8,7 @@ public abstract class AnyProvider<T> implements Provider {
 
     @Override
     public T get(final Class c) {
-        for (T object : instanceList) {
+        for (final T object : instanceList) {
             if (object.getClass() == c)
                 return object;
         }

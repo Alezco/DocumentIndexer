@@ -17,10 +17,8 @@ public class AnyScope implements Scope  {
     @Override
     public Provider get(final Class c) {
         for (final Provider provider : providerList)
-        {
             if (provider.get(c) != null)
                 return provider;
-        }
         return null;
     }
 
