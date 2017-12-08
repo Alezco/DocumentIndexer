@@ -2,6 +2,7 @@ package main;
 
 import aspect.Aspect;
 import aspect.BeforeInvocation;
+import service.IURLRepo;
 import service.URLRepo;
 
 import java.lang.reflect.Proxy;
@@ -18,11 +19,10 @@ public class Main {
         summer.bean(URLRepo.class, new URLRepo());
         final URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
         BeforeInvocation beforeInvocation = new BeforeInvocation(repo);
-        Aspect aspect = (Aspect) Proxy.newProxyInstance(Aspect.class.getClassLoader(),
-                new Class[] { Aspect.class },
+        IURLRepo iurlRepo = (IURLRepo) Proxy.newProxyInstance(IURLRepo.class.getClassLoader(),
+                new Class[] { IURLRepo.class },
                 beforeInvocation);
-        //aspect.invoke(Proxy.newProxyInstance(Aspect.class.getClassLoader()), repo.getClass().getMethod("testProxy"), []);
-
+        iurlRepo.testProxy();
 
         try {
             urlList.add(new URL("https://en.wikipedia.org/wiki/Rafic_Hariri"));

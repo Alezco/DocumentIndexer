@@ -11,4 +11,5 @@ public interface IURLRepo {
 
     URL request();
 
+    void testProxy();
 }
