@@ -7,7 +7,6 @@ import java.util.function.Supplier;
  */
 public class ProviderPrototype extends AnyProvider {
 
-    @Override
     public void create(final Supplier supplier) {
         final Object object = supplier.get();
         this.instanceList.add(object);

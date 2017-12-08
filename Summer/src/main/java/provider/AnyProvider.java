@@ -2,7 +2,6 @@ package provider;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 public abstract class AnyProvider implements Provider {
     public final List<Object> instanceList = new ArrayList<>();
@@ -15,7 +14,7 @@ public abstract class AnyProvider implements Provider {
         return null;
     }
 
-    public boolean create(final Object obj) {
+    /*public boolean create(final Object obj) {
         for (final Object object : instanceList) {
             if (object.getClass() == obj.getClass())
                 return false;
@@ -27,5 +26,5 @@ public abstract class AnyProvider implements Provider {
     public void create(final Supplier supplier) {
         final Object obj = supplier.get();
         instanceList.add(obj);
-    }
+    }*/
 }
