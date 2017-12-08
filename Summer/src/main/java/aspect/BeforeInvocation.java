@@ -5,14 +5,16 @@ import java.lang.reflect.Method;
 public class BeforeInvocation implements Aspect {
 
     private final Object object;
+    private final Runnable runnable;
 
-    public BeforeInvocation(final Object object) {
+    public BeforeInvocation(final Object object, final Runnable runnable) {
         this.object = object;
+        this.runnable = runnable;
     }
 
     @Override
     public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
-        System.out.println("Before invocation");
+        runnable.run();
         return method.invoke(object, args);
     }
 }
