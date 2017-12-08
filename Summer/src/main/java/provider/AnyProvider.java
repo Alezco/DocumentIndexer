@@ -8,7 +8,7 @@ public abstract class AnyProvider implements Provider {
 
     public Object get(final Class c) {
         for (final Object object : instanceList) {
-            if (object.getClass() == c)
+            if (object.getClass().equals(c))
                 return object;
         }
         return null;
