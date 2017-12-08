@@ -16,9 +16,6 @@ public class Main {
 
         try {
             urlList.add(new URL("https://en.wikipedia.org/wiki/Rafic_Hariri"));
-            //repo.store(urlList);
-            //new Crawler(repo);
-            //new Indexer(repo);
 
         } catch (final MalformedURLException e) {
             e.printStackTrace();
@@ -26,9 +23,9 @@ public class Main {
     }
 
     private static void test(Summer summer) {
+
         summer.bean(URLRepo.class, new URLRepo());
         final URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
-
         summer.addScope();
         summer.bean(URLRepo.class, new URLRepo());
         final URLRepo repo1 = (URLRepo) summer.instanceOf(URLRepo.class);
@@ -38,9 +35,11 @@ public class Main {
         else
             System.out.println("FAIL 1");
 
+        // Clean scopes
         summer.removeScope();
         summer.removeScope();
         summer.addScope();
+
         summer.bean(URLRepo.class, () -> new URLRepo());
         final URLRepo repo3 = (URLRepo) summer.instanceOf(URLRepo.class);
         summer.addScope();
