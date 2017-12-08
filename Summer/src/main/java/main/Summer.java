@@ -16,6 +16,9 @@ public class Summer {
     }
 
     public void bean(final Class c, final Object obj) {
+        for (AnyScope scope : scopeStack)
+            if (scope.get(c) != null)
+                return;
         this.scopeStack.peek().create(c, obj);
     }
 
@@ -25,7 +28,6 @@ public class Summer {
 
     public Object instanceOf(final Class c) {
         final Stack<?> temp = (Stack<?>) scopeStack.clone();
-        Collections.reverse(temp);
 
         while (!temp.isEmpty()) {
             final AnyScope scope = (AnyScope) temp.pop();
@@ -36,7 +38,8 @@ public class Summer {
     }
 
     public void removeScope() {
-        this.scopeStack.pop();
+        if (!this.scopeStack.isEmpty())
+            this.scopeStack.pop();
     }
 
     public void addScope() {

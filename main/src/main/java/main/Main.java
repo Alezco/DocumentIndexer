@@ -12,7 +12,20 @@ public class Main {
         final List<URL> urlList = new ArrayList<>();
 
         final Summer summer = new Summer();
+        test(summer);
 
+        try {
+            urlList.add(new URL("https://en.wikipedia.org/wiki/Rafic_Hariri"));
+            //repo.store(urlList);
+            //new Crawler(repo);
+            //new Indexer(repo);
+
+        } catch (final MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void test(Summer summer) {
         summer.bean(URLRepo.class, new URLRepo());
         final URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
 
@@ -24,18 +37,6 @@ public class Main {
             System.out.println("SUCCESS 1");
         else
             System.out.println("FAIL 1");
-
-        try {
-            urlList.add(new URL("https://en.wikipedia.org/wiki/Rafic_Hariri"));
-            //repo.store(urlList);
-
-            // Crawl URL
-            //new Crawler(repo);
-            //new Indexer(repo);
-
-        } catch (final MalformedURLException e) {
-            e.printStackTrace();
-        }
 
         summer.removeScope();
         summer.removeScope();
