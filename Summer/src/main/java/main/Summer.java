@@ -1,10 +1,7 @@
 package main;
 
-import aspect.Aspect;
-import provider.Provider;
 import scope.AnyScope;
 
-import java.lang.reflect.Proxy;
 import java.util.Stack;
 import java.util.function.Supplier;
 
@@ -32,8 +29,8 @@ public class Summer {
         final Stack<?> temp = (Stack<?>) scopeStack.clone();
         while (!temp.isEmpty()) {
             final AnyScope scope = (AnyScope) temp.pop();
-            if (scope.get(c) != null)
-                return scope.get(c).get(c);
+            if (scope.get(c.getInterfaces()[0]) != null)
+                return scope.get(c.getInterfaces()[0]).get(c);
         }
         return null;
     }

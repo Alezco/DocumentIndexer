@@ -18,10 +18,6 @@ public class AnyScope implements Scope  {
 
     @Override
     public <T> Provider<T> get(final Class<T> c) {
-        /*for (final Provider provider : providerMap)
-            if (provider.get(c) != null)
-                return provider;
-        return null;*/
         return (Provider<T>) providerMap.get(c);
     }
 
@@ -34,11 +30,4 @@ public class AnyScope implements Scope  {
         final ProviderSingleton provider = new ProviderSingleton(c, supplier);
         providerMap.put(c, provider);
     }
-
-    /*@Override
-    public void create(final Class c, final Supplier supplier) {
-        final ProviderSingleton provider = new ProviderSingleton(c, obj);
-        if (provider.create(obj))
-            providerMap.add(provider);
-    }*/
 }

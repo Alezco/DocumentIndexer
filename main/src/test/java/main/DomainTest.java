@@ -8,9 +8,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Guillaume on 09/12/2017.
- */
 public class DomainTest {
 
     @Test
@@ -29,6 +26,5 @@ public class DomainTest {
 
         List<URL> urlsMatching = repo.searchTerm("qui");
         assert  urlsMatching.size() == 2;
-
     }
 }
