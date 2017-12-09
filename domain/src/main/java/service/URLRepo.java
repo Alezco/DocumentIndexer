@@ -88,4 +88,8 @@ public class URLRepo implements IURLRepo {
     public void testProxy() {
         System.out.println("Test Proxy from URL Repo");
     }
+
+    public void testProxy2() {
+        System.out.println("Test Proxy 2 from URL Repo");
+    }
 }

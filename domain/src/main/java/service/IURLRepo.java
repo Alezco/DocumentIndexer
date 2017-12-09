@@ -11,5 +11,7 @@ public interface IURLRepo {
 
     void testProxy();
 
+    void testProxy2();
+
     List<URL> searchTerm(String query);
 }
