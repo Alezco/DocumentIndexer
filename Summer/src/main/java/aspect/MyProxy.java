@@ -15,11 +15,11 @@ public class MyProxy implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        for (Aspect aspect : aspectList)
+        for (final Aspect aspect : aspectList)
             if (aspect.getClass().equals(BeforeInvocation.class))
                 ((BeforeInvocation) aspect).runnable.run();
-        Object invocation = method.invoke(obj, args);
-        for (Aspect aspect : aspectList)
+        final Object invocation = method.invoke(obj, args);
+        for (final Aspect aspect : aspectList)
             if (aspect.getClass().equals(AfterInvocation.class))
                 ((AfterInvocation) aspect).runnable.run();
         return invocation;

@@ -1,5 +1,5 @@
 package provider;
 
-public interface Provider {
+public interface Provider<T> {
     Object get(final Class c);
 }

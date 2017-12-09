@@ -19,12 +19,12 @@ public class Main {
         final URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
         final BeforeInvocation beforeInvocation = new BeforeInvocation(repo, () -> System.out.println("===Before invocation===="));
         final AfterInvocation afterInvocation = new AfterInvocation(repo, () -> System.out.println("====After invocation===="));
-        final IURLRepo iurlRepo = (IURLRepo) summer.callProxy(URLRepo.class, beforeInvocation);
+        //final IURLRepo iurlRepo = (IURLRepo) summer.callProxy(URLRepo.class, beforeInvocation);
         // callProxy(.class, lambda) ===> .class => instance (instanceOf ?)
-        final IURLRepo iurlRepo2 = (IURLRepo) summer.callProxy(URLRepo.class, afterInvocation);
-        iurlRepo.testProxy();
-        System.out.println("========================");
-        iurlRepo2.testProxy();
+        //final IURLRepo iurlRepo2 = (IURLRepo) summer.callProxy(URLRepo.class, afterInvocation);
+        //iurlRepo.testProxy();
+        //System.out.println("========================");
+        //iurlRepo2.testProxy();
 
         try {
             urlList.add(new URL("https://en.wikipedia.org/wiki/Rafic_Hariri"));

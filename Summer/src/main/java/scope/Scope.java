@@ -1,7 +1,13 @@
 package scope;
 
-public interface Scope {
-    Object get(final Class c);
+import provider.Provider;
 
-    void create(final Class c, final Object obj);
+import java.util.function.Supplier;
+
+public interface Scope {
+    <T> Provider<T> get(final Class<T> c);
+
+    <T> void createPrototype(final Class<T> c, final Supplier<T> supplier);
+
+    <T> void createSingleton(final Class<T> c, final Supplier<T> supplier);
 }

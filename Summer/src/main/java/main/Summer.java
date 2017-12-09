@@ -17,18 +17,18 @@ public class Summer {
         this.addScope();
     }
 
-    public void bean(final Class c, final Object obj) {
+    public <T> void bean(final Class<T> c, final T obj) {
         for (final AnyScope scope : scopeStack)
             if (scope.get(c) != null)
                 return;
-        this.scopeStack.peek().create(c, obj);
+        this.scopeStack.peek().createSingleton(c, () -> obj);
     }
 
-    public void bean(final Class c, final Supplier supplier) {
-        this.scopeStack.peek().create(c, supplier);
+    public <T> void bean(final Class<T> c, final Supplier<T> supplier) {
+        this.scopeStack.peek().createPrototype(c, supplier);
     }
 
-    public Object instanceOf(final Class c) {
+    public <T> Object instanceOf(final Class<T> c) {
         final Stack<?> temp = (Stack<?>) scopeStack.clone();
         while (!temp.isEmpty()) {
             final AnyScope scope = (AnyScope) temp.pop();

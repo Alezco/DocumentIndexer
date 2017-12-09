@@ -1,7 +1,10 @@
 package main;
 
 import org.junit.Test;
+import service.IURLRepo;
 import service.URLRepo;
+
+import java.util.function.Supplier;
 
 public class SummerTest {
 
@@ -9,12 +12,12 @@ public class SummerTest {
     public void providerSingletonTest() throws Exception {
         final Summer summer = new Summer();
 
-        summer.bean(URLRepo.class, new URLRepo());
+        summer.bean(IURLRepo.class, new URLRepo());
         final URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
 
         summer.addScope();
 
-        summer.bean(URLRepo.class, new URLRepo());
+        summer.bean(IURLRepo.class, new URLRepo());
         final URLRepo repo1 = (URLRepo) summer.instanceOf(URLRepo.class);
 
         assert repo == repo1;
@@ -24,10 +27,10 @@ public class SummerTest {
     public void providerSingletonSameScopeTest() throws Exception {
         final Summer summer = new Summer();
 
-        summer.bean(URLRepo.class, new URLRepo());
+        summer.bean(IURLRepo.class, new URLRepo());
         final URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
 
-        summer.bean(URLRepo.class, new URLRepo());
+        summer.bean(IURLRepo.class, new URLRepo());
         final URLRepo repo1 = (URLRepo) summer.instanceOf(URLRepo.class);
 
         assert repo == repo1;
@@ -37,12 +40,12 @@ public class SummerTest {
     public void providerPrototypeTest() throws Exception {
         final Summer summer = new Summer();
 
-        summer.bean(URLRepo.class, () -> new URLRepo());
+        summer.bean(IURLRepo.class, (Supplier<IURLRepo>) () -> new URLRepo());
         final URLRepo repo1 = (URLRepo) summer.instanceOf(URLRepo.class);
 
         summer.addScope();
 
-        summer.bean(URLRepo.class, () -> new URLRepo());
+        summer.bean(IURLRepo.class, (Supplier<IURLRepo>) () -> new URLRepo());
         final URLRepo repo2 = (URLRepo) summer.instanceOf(URLRepo.class);
 
         assert repo1 != repo2;
@@ -52,10 +55,10 @@ public class SummerTest {
     public void providerPrototypeSameScope() throws Exception {
         final Summer summer = new Summer();
 
-        summer.bean(URLRepo.class, () -> new URLRepo());
+        summer.bean(IURLRepo.class, (Supplier<IURLRepo>) () -> new URLRepo());
         final URLRepo repo1 = (URLRepo) summer.instanceOf(URLRepo.class);
 
-        summer.bean(URLRepo.class, () -> new URLRepo());
+        summer.bean(IURLRepo.class, (Supplier<IURLRepo>) () -> new URLRepo());
         final URLRepo repo2 = (URLRepo) summer.instanceOf(URLRepo.class);
 
         assert repo1 == repo2;
