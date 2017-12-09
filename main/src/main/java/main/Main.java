@@ -29,6 +29,7 @@ public class Main {
         }
         final IURLRepo repo = (IURLRepo) summer.instanceOf(URLRepo.class);
         repo.testProxy();
+        //repo.searchTerm("qui");
 
 
         try {
