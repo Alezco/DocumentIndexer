@@ -75,6 +75,7 @@ public class URLRepo implements IURLRepo {
             }
         }
 
+        System.out.println("==========" + " Search Term : " + query + " ==========");
         for (HashMap.Entry<URL, Double> entry : result.entrySet()) {
             System.out.println("URL : " + entry.getKey() + " idf : " + entry.getValue());
         }
