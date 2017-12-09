@@ -40,7 +40,7 @@ public class URLRepo implements IURLRepo {
         }
     }
 
-    public void searchTerm(String query) {
+    public List<URL> searchTerm(String query) {
         Crawler crawler = new Crawler(this);
 
         while (!this.notCrawledUrl.isEmpty()) {
@@ -75,11 +75,14 @@ public class URLRepo implements IURLRepo {
             }
         }
 
+        List<URL> matchingUrls = new ArrayList<>();
         System.out.println("==========" + " Search Term : " + query + " ==========");
         for (HashMap.Entry<URL, Double> entry : result.entrySet()) {
             System.out.println("URL : " + entry.getKey() + " idf : " + entry.getValue());
+            matchingUrls.add(entry.getKey());
         }
 
+        return matchingUrls;
     }
 
     public void testProxy() {

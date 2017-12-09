@@ -31,20 +31,5 @@ public class Main {
         } catch (final MalformedURLException e) {
             e.printStackTrace();
         }
-
-        /*URLRepo repo = new URLRepo();
-
-        ArrayList<URL> urls = new ArrayList<>();
-        try {
-            urls.add(new URL("https://pastebin.com/raw/07aPR2K4"));
-            urls.add(new URL("https://pastebin.com/raw/jzAtxp85"));
-            urls.add(new URL("https://pastebin.com/raw/U7PDZqC7"));
-            repo.store(urls);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        repo.searchTerm("qui");*/
-
     }
 }

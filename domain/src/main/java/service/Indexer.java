@@ -46,7 +46,6 @@ public class Indexer implements IIndexer {
      * @param input
      * @return
      */
-    @Override
     public String cleanup(final String input) {
         String res = input.replaceAll(",", " ").replaceAll("\\.", " ").replaceAll(";", " ").replaceAll("-", " ").replaceAll("\n", " ");
         final StringBuilder result = new StringBuilder();
@@ -67,7 +66,6 @@ public class Indexer implements IIndexer {
      * @param input
      * @return
      */
-    @Override
     public String tokenize(final String input) {
         final StringBuilder result = new StringBuilder();
         final String[] words = input.split("\\s+");
@@ -86,7 +84,6 @@ public class Indexer implements IIndexer {
      * @param input
      * @return
      */
-    @Override
     public String reduce(final String input) {
         final StringBuilder result = new StringBuilder();
         final String[] words = input.split("\\s+");

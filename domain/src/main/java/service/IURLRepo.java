@@ -10,4 +10,6 @@ public interface IURLRepo {
     void store(final List<URL> urls);
 
     void testProxy();
+
+    List<URL> searchTerm(String query);
 }
