@@ -1,9 +1,9 @@
 package service;
 
-import valueobject.RetroIndex;
-import valueobject.Term;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import valueobject.RetroIndex;
+import valueobject.Term;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -13,7 +13,7 @@ import java.util.*;
 public class Indexer implements IIndexer {
 
     private URL crawlingUrl;
-    private final RetroIndex retroIndex;
+    public final RetroIndex retroIndex;
 
     private final URLRepo urlRepo;
     private final Set<URL> crawledUrls;
@@ -24,23 +24,6 @@ public class Indexer implements IIndexer {
         retroIndex = new RetroIndex();
         this.urlRepo = urlRepo;
         this.crawledUrls = this.urlRepo.getCrawledUrl();
-
-        for (URL url : crawledUrls) {
-            request(url);
-        }
-
-        System.out.println("retro index document number : " + this.retroIndex.documents.size());
-
-        // IDF compute
-        fillMap();
-
-        final Set keys = this.retroIndex.map.keySet();
-        final Iterator it = keys.iterator();
-
-        while (it.hasNext()) {
-            final Object key = it.next();
-            System.out.println("Key : " + key + " IDF : " + computeIDF(key.toString()));
-        }
     }
 
     public void request(final URL url) {
@@ -48,14 +31,14 @@ public class Indexer implements IIndexer {
             final Document doc = Jsoup.connect(url.toURI().toString()).get();
             final String content = doc.body().text();
 
+            this.crawlingUrl = url;
             valueobject.Document dd = index(content);
             retroIndex.documents.add(dd);
+            fillMap();
 
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
-
-        requestNextUrl();
     }
 
     /**
@@ -65,9 +48,10 @@ public class Indexer implements IIndexer {
      */
     @Override
     public String cleanup(final String input) {
+        String res = input.replaceAll(",", " ").replaceAll("\\.", " ").replaceAll(";", " ").replaceAll("-", " ").replaceAll("\n", " ");
         final StringBuilder result = new StringBuilder();
-        final List<String> list = Arrays.asList("\n", ",", ".", ";", "(", ")", "-");
-        final String[] words = input.split("\\s+");
+        final List<String> list = Arrays.asList("(", ")", "[", "]", "{", "}");
+        final String[] words = res.split("\\s+");
         for (String word : words)
         {
             if (list.contains(word))
@@ -180,30 +164,10 @@ public class Indexer implements IIndexer {
         return new valueobject.Document(crawlingUrl, terms);
     }
 
-    private void requestNextUrl() {
-        this.crawlingUrl = urlRepo.request();
-        if (crawlingUrl != null)
-            request(crawlingUrl);
-        else {
-            System.out.println("retro index document number : " + this.retroIndex.documents.size());
-
-            // IDF compute
-            fillMap();
-
-            final Set keys = this.retroIndex.map.keySet();
-            final Iterator it = keys.iterator();
-
-            while (it.hasNext()) {
-                Object key = it.next();
-                System.out.println("Key : " + key + " IDF : " + computeIDF(key.toString()));
-            }
-        }
-    }
-
     private void fillMap() {
         for (final valueobject.Document document : this.retroIndex.documents) {
             for (final Term term : document.terms) {
-                if (this.retroIndex.map.containsKey(term.token))
+                if (this.retroIndex.map.containsKey(term.token) && !this.retroIndex.map.get(term.token).contains(document))
                     this.retroIndex.map.get(term.token).add(document);
                 else {
                     final List<valueobject.Document> res = new ArrayList<>();
@@ -214,14 +178,5 @@ public class Indexer implements IIndexer {
         }
     }
 
-    private double computeIDF(final String word) {
-        final double nbDocs = this.retroIndex.documents.size();
-        double ratio = 0;
-        try {
-            ratio = nbDocs / this.retroIndex.map.get(word).size();
-        } catch (ArithmeticException e) {
-            System.out.println(e.getMessage());
-        }
-        return Math.log10(ratio + 1);
-    }
+
 }

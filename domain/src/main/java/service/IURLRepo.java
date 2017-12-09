@@ -9,7 +9,5 @@ public interface IURLRepo {
 
     void store(final List<URL> urls);
 
-    URL request();
-
     void testProxy();
 }

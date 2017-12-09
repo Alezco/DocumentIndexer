@@ -1,11 +1,12 @@
 package service;
 
+import valueobject.Document;
+import valueobject.RetroIndex;
+import valueobject.Term;
+
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 public class URLRepo implements IURLRepo {
     private final Stack<URL> notCrawledUrl;
@@ -39,12 +40,45 @@ public class URLRepo implements IURLRepo {
         }
     }
 
-    public URL request() {
-        if (notCrawledUrl.isEmpty())
-            return null;
-        final URL url = notCrawledUrl.pop();
-        crawledUrl.add(url);
-        return url;
+    public void searchTerm(String query) {
+        Crawler crawler = new Crawler(this);
+
+        while (!this.notCrawledUrl.isEmpty()) {
+            final URL url = notCrawledUrl.pop();
+            crawledUrl.add(url);
+            crawler.crawl(url);
+        }
+
+        Indexer indexer = new Indexer(this);
+        List<Document> documents = new ArrayList<>();
+
+        for (URL url : crawledUrl) {
+            indexer.request(url);
+        }
+
+        RetroIndex retroIndex = indexer.retroIndex;
+        documents = retroIndex.documents;
+        System.out.println("size = " + documents.size());
+
+        HashMap<URL, Double> result = new HashMap<>();
+
+        for (Document doc : retroIndex.documents) {
+            for (Term term : doc.terms) {
+                if (term.token.equals(query)) {
+                    float tf = term.frequency;
+                    double x = (double)retroIndex.documents.size();
+                    double y = (double)retroIndex.map.get(query).size();
+                    double ratio = x / y;
+                    double idf = Math.log10(ratio + 1);
+                    result.put(doc.url, tf * idf);
+                }
+            }
+        }
+
+        for (HashMap.Entry<URL, Double> entry : result.entrySet()) {
+            System.out.println("URL : " + entry.getKey() + " idf : " + entry.getValue());
+        }
+
     }
 
     public void testProxy() {

@@ -2,11 +2,7 @@ package service;
 
 import valueobject.Document;
 
-import java.net.URL;
-
 public interface IIndexer {
-
-    void request(final URL url);
 
     String cleanup(final String input);
 
