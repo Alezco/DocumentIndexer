@@ -19,15 +19,16 @@ public class Main {
 
         ArrayList<Aspect> aspects = new ArrayList<>();
         aspects.add(new BeforeInvocation(() -> System.out.println("Before 1 !")));
-        //aspects.add(new BeforeInvocation(repo, () -> System.out.println("Before 2 !")));
-        //aspects.add(new AfterInvocation(repo, () -> System.out.println("After 1 !")));
+        aspects.add(new BeforeInvocation(() -> System.out.println("Before 2 !")));
+        aspects.add(new AfterInvocation(() -> System.out.println("After 1 !")));
 
         try {
-            summer.bean(URLRepo.class, new URLRepo(), aspects, URLRepo.class.getMethod("searchTerm"));
+            summer.bean(IURLRepo.class, new URLRepo(), aspects, URLRepo.class.getMethod("testProxy"));
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        final URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
+        final IURLRepo repo = (IURLRepo) summer.instanceOf(URLRepo.class);
+        repo.testProxy();
 
 
         try {
