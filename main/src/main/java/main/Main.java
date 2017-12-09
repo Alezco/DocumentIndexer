@@ -14,23 +14,19 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         final List<URL> urlList = new ArrayList<>();
-
         final Summer summer = new Summer();
-
-        ArrayList<Aspect> aspects = new ArrayList<>();
+        final ArrayList<Aspect> aspects = new ArrayList<>();
         aspects.add(new BeforeInvocation(() -> System.out.println("Before 1 !")));
         aspects.add(new BeforeInvocation(() -> System.out.println("Before 2 !")));
         aspects.add(new AfterInvocation(() -> System.out.println("After 1 !")));
 
         try {
             summer.bean(IURLRepo.class, new URLRepo(), aspects, URLRepo.class.getMethod("testProxy"));
-        } catch (NoSuchMethodException e) {
+        } catch (final NoSuchMethodException e) {
             e.printStackTrace();
         }
         final IURLRepo repo = (IURLRepo) summer.instanceOf(URLRepo.class);
         repo.testProxy();
-        //repo.searchTerm("qui");
-
 
         try {
             urlList.add(new URL("https://en.wikipedia.org/wiki/Rafic_Hariri"));

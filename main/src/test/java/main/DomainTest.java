@@ -12,9 +12,9 @@ public class DomainTest {
 
     @Test
     public void searchTermTest() {
-        URLRepo repo = new URLRepo();
+        final URLRepo repo = new URLRepo();
 
-        ArrayList<URL> urls = new ArrayList<>();
+        final ArrayList<URL> urls = new ArrayList<>();
         try {
             urls.add(new URL("https://pastebin.com/raw/07aPR2K4"));
             urls.add(new URL("https://pastebin.com/raw/jzAtxp85"));
@@ -24,15 +24,15 @@ public class DomainTest {
             e.printStackTrace();
         }
 
-        List<URL> urlsMatching = repo.searchTerm("qui");
+        final List<URL> urlsMatching = repo.searchTerm("qui");
         assert  urlsMatching.size() == 2;
     }
 
     @Test
     public void searchTermTest2() {
-        URLRepo repo = new URLRepo();
+        final URLRepo repo = new URLRepo();
 
-        ArrayList<URL> urls = new ArrayList<>();
+        final ArrayList<URL> urls = new ArrayList<>();
         try {
             urls.add(new URL("https://pastebin.com/raw/p1rixE68"));
             urls.add(new URL("https://pastebin.com/raw/HV7RHk5d"));
@@ -43,7 +43,7 @@ public class DomainTest {
             e.printStackTrace();
         }
 
-        List<URL> urlsMatching = repo.searchTerm("untitl");
+        final List<URL> urlsMatching = repo.searchTerm("untitl");
         assert  urlsMatching.size() == 3;
     }
 }
