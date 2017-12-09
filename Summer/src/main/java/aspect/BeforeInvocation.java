@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 public class BeforeInvocation implements Aspect {
 
     private final Object object;
-    private final Runnable runnable;
+    public final Runnable runnable;
 
     public BeforeInvocation(final Object object, final Runnable runnable) {
         this.object = object;

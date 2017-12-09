@@ -46,8 +46,4 @@ public class Summer {
     public void addScope() {
         this.scopeStack.push(new AnyScope());
     }
-
-    public Object callProxy(final Class c, final Aspect aspect) {
-        return Proxy.newProxyInstance(Provider.class.getClassLoader(), c.getInterfaces(), aspect);
-    }
 }

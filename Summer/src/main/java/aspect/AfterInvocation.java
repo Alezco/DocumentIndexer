@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 public class AfterInvocation implements Aspect {
 
     private final Object object;
-    private final Runnable runnable;
+    public final Runnable runnable;
 
     public AfterInvocation(final Object object, final Runnable runnable) {
         this.object = object;

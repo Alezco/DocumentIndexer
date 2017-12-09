@@ -16,10 +16,10 @@ public class ExecutionContext {
         this.object = object;
     }
 
-    Object proceed() {
+    public Object proceed() {
         try {
             return method.invoke(object, args);
-        } catch (IllegalAccessException | InvocationTargetException e) {
+        } catch (final IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;
