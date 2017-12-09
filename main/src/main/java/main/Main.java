@@ -1,6 +1,7 @@
 package main;
 
 import aspect.AfterInvocation;
+import aspect.Aspect;
 import aspect.BeforeInvocation;
 import service.IURLRepo;
 import service.URLRepo;
@@ -15,16 +16,19 @@ public class Main {
         final List<URL> urlList = new ArrayList<>();
 
         final Summer summer = new Summer();
-        summer.bean(URLRepo.class, new URLRepo());
+
+        ArrayList<Aspect> aspects = new ArrayList<>();
+        aspects.add(new BeforeInvocation(() -> System.out.println("Before 1 !")));
+        //aspects.add(new BeforeInvocation(repo, () -> System.out.println("Before 2 !")));
+        //aspects.add(new AfterInvocation(repo, () -> System.out.println("After 1 !")));
+
+        try {
+            summer.bean(URLRepo.class, new URLRepo(), aspects, URLRepo.class.getMethod("searchTerm"));
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
         final URLRepo repo = (URLRepo) summer.instanceOf(URLRepo.class);
-        final BeforeInvocation beforeInvocation = new BeforeInvocation(repo, () -> System.out.println("===Before invocation===="));
-        final AfterInvocation afterInvocation = new AfterInvocation(repo, () -> System.out.println("====After invocation===="));
-        //final IURLRepo iurlRepo = (IURLRepo) summer.callProxy(URLRepo.class, beforeInvocation);
-        // callProxy(.class, lambda) ===> .class => instance (instanceOf ?)
-        //final IURLRepo iurlRepo2 = (IURLRepo) summer.callProxy(URLRepo.class, afterInvocation);
-        //iurlRepo.testProxy();
-        //System.out.println("========================");
-        //iurlRepo2.testProxy();
+
 
         try {
             urlList.add(new URL("https://en.wikipedia.org/wiki/Rafic_Hariri"));

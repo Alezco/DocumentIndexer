@@ -11,8 +11,9 @@ public abstract class AnyProvider<T> implements Provider<T> {
 
     public abstract Object get(final Class c);
 
-    public Provider addAspect(final Aspect aspect) {
-        aspectList.add(aspect);
+    public Provider addAspects(final List<Aspect> aspects) {
+        if (aspects != null)
+            aspectList.addAll(aspects);
         return this;
     }
 }

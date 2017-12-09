@@ -12,12 +12,12 @@ public class SummerTest {
     public void providerSingletonTest() throws Exception {
         final Summer summer = new Summer();
 
-        summer.bean(IURLRepo.class, new URLRepo());
+        summer.bean(IURLRepo.class, new URLRepo(), null, null);
         final IURLRepo repo = (IURLRepo) summer.instanceOf(URLRepo.class);
 
         summer.addScope();
 
-        summer.bean(IURLRepo.class, new URLRepo());
+        summer.bean(IURLRepo.class, new URLRepo(), null, null);
         final IURLRepo repo1 = (IURLRepo) summer.instanceOf(URLRepo.class);
 
         assert repo != null;
@@ -29,10 +29,10 @@ public class SummerTest {
     public void providerSingletonSameScopeTest() throws Exception {
         final Summer summer = new Summer();
 
-        summer.bean(IURLRepo.class, new URLRepo());
+        summer.bean(IURLRepo.class, new URLRepo(), null, null);
         final IURLRepo repo = (IURLRepo) summer.instanceOf(URLRepo.class);
 
-        summer.bean(IURLRepo.class, new URLRepo());
+        summer.bean(IURLRepo.class, new URLRepo(), null, null);
         final IURLRepo repo1 = (IURLRepo) summer.instanceOf(URLRepo.class);
 
         assert repo != null;
@@ -44,12 +44,12 @@ public class SummerTest {
     public void providerPrototypeTest() throws Exception {
         final Summer summer = new Summer();
 
-        summer.bean(IURLRepo.class, (Supplier<IURLRepo>) () -> new URLRepo());
+        summer.bean(IURLRepo.class, (Supplier<IURLRepo>) () -> new URLRepo(), null, null);
         final IURLRepo repo1 = (IURLRepo) summer.instanceOf(URLRepo.class);
 
         summer.addScope();
 
-        summer.bean(IURLRepo.class, (Supplier<IURLRepo>) () -> new URLRepo());
+        summer.bean(IURLRepo.class, (Supplier<IURLRepo>) () -> new URLRepo(), null, null);
         final IURLRepo repo2 = (IURLRepo) summer.instanceOf(URLRepo.class);
 
         assert repo1 != null;
@@ -61,10 +61,10 @@ public class SummerTest {
     public void providerPrototypeSameScope() throws Exception {
         final Summer summer = new Summer();
 
-        summer.bean(IURLRepo.class, (Supplier<IURLRepo>) () -> new URLRepo());
+        summer.bean(IURLRepo.class, (Supplier<IURLRepo>) () -> new URLRepo(), null, null);
         final IURLRepo repo1 = (IURLRepo) summer.instanceOf(URLRepo.class);
 
-        summer.bean(IURLRepo.class, (Supplier<IURLRepo>) () -> new URLRepo());
+        summer.bean(IURLRepo.class, (Supplier<IURLRepo>) () -> new URLRepo(), null, null);
         final IURLRepo repo2 = (IURLRepo) summer.instanceOf(URLRepo.class);
 
         assert repo1 != null;

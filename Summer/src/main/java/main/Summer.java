@@ -1,7 +1,10 @@
 package main;
 
+import aspect.Aspect;
 import scope.AnyScope;
 
+import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Stack;
 import java.util.function.Supplier;
 
@@ -14,15 +17,15 @@ public class Summer {
         this.addScope();
     }
 
-    public <T> void bean(final Class<T> c, final T obj) {
+    public <T> void bean(final Class<T> c, final T obj, final List<Aspect> aspectList, final Method method) {
         for (final AnyScope scope : scopeStack)
             if (scope.get(c) != null)
                 return;
-        this.scopeStack.peek().createSingleton(c, () -> obj);
+        this.scopeStack.peek().createSingleton(c, () -> obj, aspectList, method);
     }
 
-    public <T> void bean(final Class<T> c, final Supplier<T> supplier) {
-        this.scopeStack.peek().createPrototype(c, supplier);
+    public <T> void bean(final Class<T> c, final Supplier<T> supplier, final List<Aspect> aspectList, final Method method) {
+        this.scopeStack.peek().createPrototype(c, supplier, aspectList, method);
     }
 
     public <T> Object instanceOf(final Class<T> c) {
