@@ -11,7 +11,6 @@ import java.net.URL;
 import java.util.*;
 
 public class Indexer implements IIndexer {
-
     private URL crawlingUrl;
     public final RetroIndex retroIndex;
 
@@ -35,7 +34,6 @@ public class Indexer implements IIndexer {
             valueobject.Document dd = index(content);
             retroIndex.documents.add(dd);
             fillMap();
-
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
@@ -51,8 +49,7 @@ public class Indexer implements IIndexer {
         final StringBuilder result = new StringBuilder();
         final List<String> list = Arrays.asList("(", ")", "[", "]", "{", "}");
         final String[] words = res.split("\\s+");
-        for (String word : words)
-        {
+        for (final String word : words) {
             if (list.contains(word))
                 continue;
             result.append(word);
@@ -69,7 +66,7 @@ public class Indexer implements IIndexer {
     public String tokenize(final String input) {
         final StringBuilder result = new StringBuilder();
         final String[] words = input.split("\\s+");
-        for (String word : words) {
+        for (final String word : words) {
             // Stop Words
             if (stopWords.contains(word))
                 continue;
@@ -109,20 +106,14 @@ public class Indexer implements IIndexer {
     @Override
     public valueobject.Document index(final String input) {
         final List<Term> terms = new ArrayList<>();
-
         final String cleanup = this.cleanup(input);
         float nbWords = cleanup.split("\\s+").length;
         final String tokenize = this.tokenize(cleanup);
         final String reduce = this.reduce(tokenize);
-
         final String[] words = reduce.split("\\s+");
-
-        // Frequence and positions
         final Map<String, Integer> countsOccurence = new HashMap<>();
 
-        for (String word : words) {
-
-            // Occurences count
+        for (final String word : words) {
             if (countsOccurence.containsKey(word))
                 countsOccurence.put(word, countsOccurence.get(word) + 1 );
             else
@@ -137,7 +128,6 @@ public class Indexer implements IIndexer {
             final int occurence = countsOccurence.get(key);
             final float tf = (float)occurence / nbWords;
 
-            // Positions
             final List<Integer> positions = new ArrayList<>();
             final String[] strings = cleanup.split("\\s+");
 
@@ -151,13 +141,6 @@ public class Indexer implements IIndexer {
             final Term term = new Term(key.toString(), positions, tf);
             terms.add(term);
         }
-
-        for (Term t : terms) {
-            System.out.println("token: " + t.token);
-            System.out.println("tf: " + t.frequency);
-            System.out.println("positions: " + t.positions.toString());
-        }
-
         return new valueobject.Document(crawlingUrl, terms);
     }
 

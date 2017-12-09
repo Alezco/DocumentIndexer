@@ -23,12 +23,11 @@ public class Crawler implements ICrawler {
 
     @Override
     public void crawl(final URL url) {
-
         List<URL> extracted = new ArrayList<>();
 
         try {
             this.document = Jsoup.connect(url.toURI().toString()).get();
-        } catch (URISyntaxException | IOException e) {
+        } catch (final URISyntaxException | IOException e) {
             e.printStackTrace();
         }
 
@@ -41,7 +40,6 @@ public class Crawler implements ICrawler {
                         if (!extracted.contains(urlExtracted))
                             extracted.add(urlExtracted);
                     }
-
                 } catch (MalformedURLException e1) {
                     e1.printStackTrace();
                 }
@@ -49,5 +47,4 @@ public class Crawler implements ICrawler {
         }
         urlRepo.store(extracted);
     }
-
 }

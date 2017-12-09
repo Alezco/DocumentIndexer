@@ -1,7 +1,5 @@
 package valueobject;
 
-import valueobject.Term;
-
 import java.net.URL;
 import java.util.List;
 

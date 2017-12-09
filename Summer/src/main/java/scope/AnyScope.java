@@ -24,13 +24,13 @@ public class AnyScope implements Scope  {
         return (Provider<T>) providerMap.get(c.getClass());
     }
 
-    public <T> void createPrototype(final Class<T> c, final Supplier<T> supplier, List<Aspect> aspectList, final Method method) {
+    public <T> void createPrototype(final Class<T> c, final Supplier<T> supplier, final List<Aspect> aspectList, final Method method) {
         final ProviderPrototype provider = new ProviderPrototype(c, supplier, method);
         provider.addAspects(aspectList);
         providerMap.put(c.getClass(), provider);
     }
 
-    public <T> void createSingleton(final Class<T> c, final Supplier<T> supplier, List<Aspect> aspectList, final Method method) {
+    public <T> void createSingleton(final Class<T> c, final Supplier<T> supplier, final List<Aspect> aspectList, final Method method) {
         final ProviderSingleton provider = new ProviderSingleton(c, supplier, method);
         provider.addAspects(aspectList);
         providerMap.put(c.getClass(), provider);
