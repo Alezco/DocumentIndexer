@@ -27,4 +27,23 @@ public class DomainTest {
         List<URL> urlsMatching = repo.searchTerm("qui");
         assert  urlsMatching.size() == 2;
     }
+
+    @Test
+    public void searchTermTest2() {
+        URLRepo repo = new URLRepo();
+
+        ArrayList<URL> urls = new ArrayList<>();
+        try {
+            urls.add(new URL("https://pastebin.com/raw/p1rixE68"));
+            urls.add(new URL("https://pastebin.com/raw/HV7RHk5d"));
+            urls.add(new URL("https://pastebin.com/raw/SS0QnUd3"));
+            urls.add(new URL("https://pastebin.com/raw/6BN8TC0d"));
+            repo.store(urls);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        List<URL> urlsMatching = repo.searchTerm("untitl");
+        assert  urlsMatching.size() == 3;
+    }
 }
