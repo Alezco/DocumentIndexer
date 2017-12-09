@@ -20,6 +20,8 @@ public class SummerTest {
         summer.bean(IURLRepo.class, new URLRepo());
         final IURLRepo repo1 = (IURLRepo) summer.instanceOf(URLRepo.class);
 
+        assert repo != null;
+        assert repo1 != null;
         assert repo == repo1;
     }
 
@@ -33,6 +35,8 @@ public class SummerTest {
         summer.bean(IURLRepo.class, new URLRepo());
         final IURLRepo repo1 = (IURLRepo) summer.instanceOf(URLRepo.class);
 
+        assert repo != null;
+        assert repo1 != null;
         assert repo == repo1;
     }
 
@@ -48,6 +52,8 @@ public class SummerTest {
         summer.bean(IURLRepo.class, (Supplier<IURLRepo>) () -> new URLRepo());
         final IURLRepo repo2 = (IURLRepo) summer.instanceOf(URLRepo.class);
 
+        assert repo1 != null;
+        assert repo2 != null;
         assert repo1 != repo2;
     }
 
@@ -61,6 +67,8 @@ public class SummerTest {
         summer.bean(IURLRepo.class, (Supplier<IURLRepo>) () -> new URLRepo());
         final IURLRepo repo2 = (IURLRepo) summer.instanceOf(URLRepo.class);
 
-        assert repo1 == repo2;
+        assert repo1 != null;
+        assert repo2 != null;
+        assert repo1 != repo2;
     }
 }

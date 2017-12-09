@@ -18,16 +18,16 @@ public class AnyScope implements Scope  {
 
     @Override
     public <T> Provider<T> get(final Class<T> c) {
-        return (Provider<T>) providerMap.get(c);
+        return (Provider<T>) providerMap.get(c.getClass());
     }
 
     public <T> void createPrototype(final Class<T> c, final Supplier<T> supplier) {
         final ProviderPrototype provider = new ProviderPrototype(c, supplier);
-        providerMap.put(c, provider);
+        providerMap.put(c.getClass(), provider);
     }
 
     public <T> void createSingleton(final Class<T> c, final Supplier<T> supplier) {
         final ProviderSingleton provider = new ProviderSingleton(c, supplier);
-        providerMap.put(c, provider);
+        providerMap.put(c.getClass(), provider);
     }
 }
