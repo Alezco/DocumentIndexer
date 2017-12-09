@@ -75,7 +75,6 @@ public class URLRepo implements IURLRepo {
         }
         return matchingUrls;
     }
-<<<<<<< 4bef57a0b5610fcb2fb1c37e5cae65845e7c9b89
 
     public void testProxy() {
         System.out.println("Test Proxy from URL Repo");
@@ -84,6 +83,5 @@ public class URLRepo implements IURLRepo {
     public void testProxy2() {
         System.out.println("Test Proxy 2 from URL Repo");
     }
-=======
->>>>>>> Clean code
+
 }
